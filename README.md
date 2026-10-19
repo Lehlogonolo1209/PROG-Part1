@@ -123,7 +123,7 @@ The tests check:
 - Successful login.
 - Failed login.
   
- ## FOR PART2**
+ ## FOR PART2
  The tests check:
 - Correct and incorrect message lengths.
 - Valid and invalid cellphone numbers.
@@ -146,6 +146,26 @@ The tests check:
 - Maven
 - JUnit 5
 - GitHub
+
+## What I Learned
+
+Through Part 1 and Part 2 of my programming practical work, I learned many new things about Java programming. I learned how to write code, test my program, find mistakes, and fix them. These tasks helped me understand how to build a program step by step.
+
+**Part 1: Registration and Login**
+
+In Part 1, I learned how to create a registration and login system using Java. I learned how to ask users to enter their personal details, such as their first name, last name, username, password, and cellphone number.
+
+I also learned how to check if the information entered is correct. For example, the program checks if the username has an underscore and is not more than five characters. It also checks if the password has the required characters and if the cellphone number is in the correct format.
+
+I learned how to allow users to log in using the details they entered during registration. This helped me understand how a registration and login system works.
+
+**Part 2: Sending Messages**
+
+In Part 2, I learned how to create and manage messages using Java. I learned how to check the length of a message and make sure that the recipient's cellphone number is correct.
+
+I also learned how to create a message ID and a message hash. These help identify messages. I learned how to work with different message statuses, such as sent, disregarded, and stored.
+
+I also learned how to count messages, display message details, and save message information in JSON format. This helped me understand how a messaging system can manage information.
 
 
 
