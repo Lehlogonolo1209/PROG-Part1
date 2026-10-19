@@ -22,6 +22,69 @@ My program can:
 - Show a message when the login is successful or unsuccessful.
 - Use JUnit tests to check if the program is working correctly.
 
+   ## FOR PART 2
+  **My program can:**
+- Check whether a message is within the allowed length.
+- Check whether a recipient's cellphone number has the correct international format.
+- Generate a message ID containing 10 digits.
+- Create a message hash to identify a message.
+- Remove punctuation from message text when required.
+- Create message objects containing message information.
+- Set and check the status of a message.
+- Allow a message to be sent, disregarded, or stored.
+- Count messages and display message information.
+- Store message information in JSON format.
+- Use JUnit 5 tests to check whether the program works correctly.
+
+  ## Message Length
+- The program checks that a message does not exceed 250 characters.
+- Messages containing 250 characters or fewer can be accepted.
+- Messages containing more than 250 characters are rejected.
+- The program indicates how many characters must be removed when a message is too long.
+  
+
+## Recipient Cellphone Number
+The program checks whether the recipient's cellphone number follows the required international format.
+
+Example:
+
++27718693002
+
+A number that does not follow the required format should be rejected with an appropriate error message.
+
+## Message ID
+Each message must have a message ID containing 10 digits. The program generates a message ID and checks whether it has the correct length and format.
+
+Example:
+
+0012345678
+
+## Message Hash
+The program creates a message hash using information from the message ID, the message number, and the message text. This helps identify individual messages.
+
+Example:
+
+00:0:HITONIGHT
+
+The expected hash format depends on the message number and the first and last words of the message.
+
+## Message Status
+The program supports different message statuses:
+
+-Sent: The message has been sent.
+-The message has been rejected or disregarded.
+-Stored: The message has been saved for later use.
+The program also returns the appropriate response when an invalid message option is selected.
+
+## Message Storage and Display
+The program can manage message information, count messages, and display details such as:
+Message ID
+-Message hash
+-Recipient cellphone number
+-Message text
+-The program also includes functionality for storing messages in JSON format so that the information can be saved.
+  
+
 ## Username
 
 The username must:
@@ -59,7 +122,23 @@ The tests check:
 - Correct and incorrect cellphone numbers.
 - Successful login.
 - Failed login.
-
+  
+ ## FOR PART2**
+ The tests check:
+- Correct and incorrect message lengths.
+- Valid and invalid cellphone numbers.
+- Message hash creation.
+- Removing punctuation from message text.
+- Message ID generation and validation.
+- Sending, disregarding, and storing messages.
+- Creating message objects and checking their details.
+- Checking message statuses.
+- Counting messages.
+- Displaying message information.
+- Counting stored messages.
+- These tests help me find mistakes and improve the reliability of my program.
+  
+ 
 ## Tools I Used
 
 - Java
@@ -67,3 +146,6 @@ The tests check:
 - Maven
 - JUnit 5
 - GitHub
+
+
+
