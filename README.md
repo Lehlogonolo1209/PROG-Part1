@@ -1,4 +1,4 @@
-# PROG-Part1
+# PROG-PEO
 Java registration and login system with input validation and JUnit tests.
 # MamakokoLPart1
 
@@ -35,6 +35,35 @@ My program can:
 - Count messages and display message information.
 - Store message information in JSON format.
 - Use JUnit 5 tests to check whether the program works correctly.
+
+## Part 3 – Store Data and Display Task Report
+My program can:
+
+Create an array containing all sent messages.
+
+Create an array containing all disregarded messages.
+
+Create an array containing all stored messages.
+
+Store message hashes in an array.
+
+Store message IDs in an array.
+
+Read stored messages from a JSON file.
+
+Display the sender and recipient of stored messages.
+
+Find and display the longest stored message.
+
+Search for a message using its message ID.
+
+Search for all stored messages belonging to a particular recipient.
+
+Delete a stored message using its message hash.
+
+Display a report containing the details of stored messages.
+
+I also added a fourth option called Stored Messages to the main menu. This allows users to access the different stored message features.
 
   ## Message Length
 - The program checks that a message does not exceed 250 characters.
@@ -167,5 +196,19 @@ I also learned how to create a message ID and a message hash. These help identif
 
 I also learned how to count messages, display message details, and save message information in JSON format. This helped me understand how a messaging system can manage information.
 
+**Part 3: Arrays and Stored Messages**
 
+In Part 3, I learned how to create and work with arrays in Java. I learned how to store different messages in separate arrays depending on whether they were sent, disregarded or stored.
+
+I also learned how to add information to arrays, search through arrays and remove information when a message is deleted. This helped me understand how arrays can be used to organise and manage information in a program.
+
+Another important thing I learned was how to work with JSON files to save and read stored messages. This helped me understand how information can be kept even after the program is closed.
+
+I also learned how to create a message report and display important information, such as message hashes, recipients and message content.
+
+**Overall Learning Experience**
+
+Overall, this practical work helped me improve my problem-solving skills and become more confident in Java programming. I learned that writing a program is not only about making the code work but also about testing it, finding errors and improving it.
+
+Each part introduced me to new programming concepts, and I gained a better understanding of how different Java features can work together to create a complete application.
 
