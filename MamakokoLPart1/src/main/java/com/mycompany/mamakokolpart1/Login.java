@@ -6,7 +6,7 @@ package com.mycompany.mamakokolpart1;
 
 /**
  *
- * @author Mzukisi
+ * @author Lehlogonolo
  */
 public class Login {
 
