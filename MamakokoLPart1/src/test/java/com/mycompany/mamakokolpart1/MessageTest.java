@@ -177,7 +177,7 @@ public class MessageTest {
     @Test
     public void checkPrintMessages() {
         MessageManager manager = new MessageManager();
-        Message message = new Message("0012345678", "Lehlhogonolo", "+27718693002",
+        Message message = new Message("0012345678", "Lehlogonolo", "+27718693002",
                 "Hi Mike, can you join us for dinner tonight?", 0);
         manager.sendMessage(message);
         String expected = "Message ID: 0012345678"
