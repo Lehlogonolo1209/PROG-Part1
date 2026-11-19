@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.mycompany.mamakokolpart1.MessagePart3Test
+-------------------------------------------------------------------------------
+Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.261 s -- in com.mycompany.mamakokolpart1.MessagePart3Test

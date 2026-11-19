@@ -157,24 +157,37 @@ public class MessageTest {
         assertEquals(1, manager.returnTotalMessages());
     }
 
+   
     @Test
     public void testPrintMessages() {
 
+        // Create MessageManager object
         MessageManager manager = new MessageManager();
 
+        // Create a message
         Message message = new Message(
                 "Lehlogonolo",
                 "+27718693002",
                 "Hello Mike!",
                 0);
 
+        // Send the message
         manager.sendMessage(message);
 
+        // Get the displayed messages
         String result = manager.printMessages();
 
-        assertTrue(result.contains("Sender: lehlogonolo"));
-        assertTrue(result.contains("Message: Hello Mike!"));
+        // Display the result to check its contents
+        System.out.println(result);
+
+        // Check that the message information appears
+        assertTrue(result.contains(message.getSender()));
+
+        assertTrue(result.contains(message.getRecipient()));
+
+        assertTrue(result.contains(message.getMessageText()));
     }
+
 
     @Test
     public void testMessageOptions() {
