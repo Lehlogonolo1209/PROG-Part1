@@ -24,7 +24,7 @@ public class MamakokoLPart1 {
         Scanner input = new Scanner(System.in);
 
         // REGISTRATION
-
+        System.out.println("====================Registration==========================");
         // Ask user for first name
         System.out.print("Please enter your first name: ");
         firstName = input.nextLine();
@@ -94,7 +94,8 @@ public class MamakokoLPart1 {
                         cellPhoneNumber ));
 
         // LOGIN
-
+        System.out.println();
+        System.out.println("====================Login==========================");
         // Ask for username
         System.out.print("Please enter your username: ");
         registerUserName = input.nextLine();
@@ -123,17 +124,11 @@ public class MamakokoLPart1 {
         // Only users who logged in successfully can send messages
         if (loginSuccessful) {
 
+             System.out.println();
+             System.out.println("====================Quickchat App==========================");
             System.out.println("Welcome to QuickChat.");
 
-            // Ask how many messages the user wants to send
-            System.out.print("Please enter how many messages you want to send: ");
-            int numberOfMessages = readWholeNumber(input);
-
-            // Check number of messages
-            while (numberOfMessages <= 0) {
-                System.out.print("Please enter a number bigger than 0: ");
-                numberOfMessages = readWholeNumber(input);
-            }
+            
 
             int messageNumber = 0;
             int menuOption;
@@ -149,7 +144,20 @@ public class MamakokoLPart1 {
 
                 switch (menuOption) {
                     case 1:
-                        if (messageNumber < numberOfMessages) {
+                        
+                        // Ask how many messages the user wants to send
+                        System.out.println();
+                        System.out.print("Please enter how many messages you want to send: ");
+                        int numberOfMessages = readWholeNumber(input);
+
+                        // Check number of messages
+                        while (numberOfMessages <= 0) {
+                            System.out.print("Please enter a number bigger than 0: ");
+                            numberOfMessages = readWholeNumber(input);
+                        }
+                        
+                        while (messageNumber < numberOfMessages) {
+                            System.out.println("===============Message"+(messageNumber+1)+"===============");
                             enterMessage(input, messageNumber);
                             messageNumber++;
 
@@ -159,7 +167,11 @@ public class MamakokoLPart1 {
                                         "Total number of messages sent: "
                                         + Message.returnTotalMessages());
                             }
-                        } else {
+                            
+                        }
+                        
+                        if(messageNumber == numberOfMessages)
+                        {
                             System.out.println(
                                     "You have already entered "
                                     + numberOfMessages
@@ -195,7 +207,7 @@ public class MamakokoLPart1 {
 
         // Generate message ID
         String messageID = Message.generateMessageID();
-
+        System.out.println();
         // Ask user for recipient
         System.out.print("Please enter the recipient's cellphone number: ");
         String recipient = input.nextLine();
@@ -237,6 +249,7 @@ public class MamakokoLPart1 {
 
         System.out.println(Message.messageIDCreated(messageID));
 
+         System.out.println();
         // Ask what to do with the message
         System.out.println("1) Send Message");
         System.out.println("2) Disregard Message");
@@ -252,6 +265,7 @@ public class MamakokoLPart1 {
         }
 
         System.out.println(Message.sentMessage(option));
+         System.out.println();
 
         if (option == 1) {
             // Send message and display its details
