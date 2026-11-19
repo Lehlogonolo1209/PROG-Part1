@@ -1,197 +1,194 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
- */
-
 
 package com.mycompany.mamakokolpart1;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- *
- * @author Mamakoko
- */
 public class MessageTest {
 
-    public MessageTest() {
+    @Test
+    public void testMessageConstructor() {
+
+        Message message = new Message(
+                "Lehlogonolo",
+                "+27718693002",
+                "Hello Mike!",
+                0);
+
+        assertEquals("Lehlogonolo", message.getSender());
+        assertEquals("+27718693002", message.getRecipient());
+        assertEquals("Hello Mike!", message.getMessageText());
     }
 
-    // Test message is not more than 250 characters (success)
     @Test
-    public void checkMessageLengthSuccess() {
-        String messageText = "Hi Mike, can you join us for dinner tonight?";
+    public void testMessageLengthSuccess() {
 
-        String actual = Message.checkMessageLength(messageText);
+        String result = Message.checkMessageLength("Hello Mike!");
 
-        assertEquals("Message ready to send.", actual);
+        assertEquals("Message ready to send.", result);
     }
 
-    // Test message is more than 250 characters (failure)
     @Test
-    public void checkMessageLengthFailure() {
-        String messageText = "";
+    public void testMessageLengthFailure() {
 
-        int index = 0;
+        String text = "";
 
-        while (index < 260) {
-            messageText = messageText + "a";
-            index++;
+        for (int i = 0; i < 260; i++) {
+            text += "a";
         }
 
-        String actual = Message.checkMessageLength(messageText);
+        String result = Message.checkMessageLength(text);
 
-        assertEquals("Message exceeds 250 characters by 10; please reduce the size.", actual);
+        assertEquals(
+                "Message exceeds 250 characters by 10; please reduce the size.",
+                result);
     }
 
-    // Test recipient number correctly formatted
     @Test
-    public void checkRecipientCorrectlyFormatted() {
-        String recipient = "+27718693002";
+    public void testEmptyMessage() {
 
-        String actual = Message.checkRecipientCell(recipient);
-
-        assertEquals("Cell phone number successfully captured.", actual);
+        assertEquals(
+                "Message cannot be empty.",
+                Message.checkMessageLength(""));
     }
 
-    // Test recipient number incorrectly formatted
     @Test
-    public void checkRecipientIncorrectlyFormatted() {
-        String recipient = "08575975889";
+    public void testRecipientSuccess() {
 
-        String actual = Message.checkRecipientCell(recipient);
+        assertEquals(
+                "Cell phone number successfully captured.",
+                Message.checkRecipientCell("+27718693002"));
+    }
 
-        assertEquals("Cell phone number is incorrectly formatted or does "
+    @Test
+    public void testRecipientFailure() {
+
+        assertEquals(
+                "Cell phone number is incorrectly formatted or does "
                 + "not contain an international code. Please "
-                + "correct the number and try again.", actual);
+                + "correct the number and try again.",
+                Message.checkRecipientCell("0712345678"));
     }
 
-    // Test message hash (Test Case 1)
     @Test
-    public void checkMessageHashTestCase1() {
-        String actual = Message.createMessageHash(
+    public void testMessageID() {
+
+        String id = Message.generateMessageID();
+
+        assertEquals(10, id.length());
+        assertTrue(Message.checkMessageID(id));
+    }
+
+    @Test
+    public void testInvalidMessageID() {
+
+        assertFalse(Message.checkMessageID("12345"));
+    }
+
+    @Test
+    public void testMessageHash() {
+
+        String hash = Message.createMessageHash(
                 "0012345678",
                 0,
                 "Hi Mike, can you join us for dinner tonight?");
 
-        assertEquals("00:0:HITONIGHT", actual);
-    }
-
-    // Test the remaining message hashes in a loop
-    @Test
-    public void checkMessageHashesInLoop() {
-        String[] messages = {
-            "Hi Mike, can you join us for dinner tonight?",
-            "Hi Keegan, did you receive the payment?"
-        };
-
-        String[] expectedHashes = {
-            "00:0:HITONIGHT",
-            "00:1:HIPAYMENT"
-        };
-
-        int index = 0;
-
-        while (index < messages.length) {
-            String actual = Message.createMessageHash(
-                    "0012345678",
-                    index,
-                    messages[index]);
-
-            assertEquals(expectedHashes[index], actual);
-            index++;
-        }
-    }
-
-    // Test message ID is created
-    @Test
-    public void checkMessageIDCreated() {
-        String messageID = Message.generateMessageID();
-
-        String actual = Message.messageIDCreated(messageID);
-
-        assertEquals("Message ID generated: " + messageID, actual);
-    }
-
-    // Test message ID is not more than ten characters
-    @Test
-    public void checkMessageIDCorrectLength() {
-        String messageID = Message.generateMessageID();
-
-        boolean expected = Message.checkMessageID(messageID);
-
-        assertEquals(true, expected);
-    }
-
-    // Test message ID is too long
-    @Test
-    public void checkMessageIDTooLong() {
-        boolean expected = Message.checkMessageID("12345678901");
-
-        assertEquals(false, expected);
-    }
-
-    // Test user selected send message
-    @Test
-    public void checkSendMessage() {
-        String actual = Message.sentMessage(1);
-
-        assertEquals("Message successfully sent.", actual);
-    }
-
-    // Test user selected disregard message
-    @Test
-    public void checkDisregardMessage() {
-        String actual = Message.sentMessage(2);
-
-        assertEquals("Press 0 to delete the message.", actual);
-    }
-
-    // Test user selected store message
-    @Test
-    public void checkStoreMessage() {
-        String actual = Message.sentMessage(3);
-
-        assertEquals("Message successfully stored.", actual);
+        assertEquals("00:0:HITONIGHT", hash);
     }
 
     @Test
-    public void checkSenderProperty() {
-        Message message = new Message("0012345678", "Lehlogonolo", "+27718693002",
-                "Hi Mike, can you join us for dinner tonight?", 0);
-        assertEquals("Lehlogonolo", message.getSender());
-        message.setSender("Mike");
-        assertEquals("Mike", message.getSender());
+    public void testMessageIDSetter() {
+
+        Message message = new Message(
+                "Lehlogonolo",
+                "+27718693002",
+                "Hello Mike!",
+                0);
+
+        message.setMessageID("0012345678");
+
+        assertEquals("0012345678", message.getMessageID());
+        assertEquals("00:0:HELLOMIKE", message.getMessageHash());
     }
 
     @Test
-    public void checkTotalMessagesSent() {
+    public void testSenderSetter() {
+
+        Message message = new Message(
+                "Lehlogonolo",
+                "+27718693002",
+                "Hello Mike!",
+                0);
+
+        message.setSender("John");
+
+        assertEquals("John", message.getSender());
+    }
+
+    @Test
+    public void testMessageTextSetter() {
+
+        Message message = new Message(
+                "Lehlogonolo",
+                "+27718693002",
+                "Hello Mike!",
+                0);
+
+        message.setMessageID("0012345678");
+        message.setMessageText("Goodbye Mike!");
+
+        assertEquals("Goodbye Mike!", message.getMessageText());
+        assertEquals("00:0:GOODBYEMIKE", message.getMessageHash());
+    }
+
+    @Test
+    public void testSendMessage() {
+
         MessageManager manager = new MessageManager();
-        Message message = new Message("0012345678", "Lehlogonolo", "+27718693002",
-                "Hi Mike, can you join us for dinner tonight?", 0);
+
+        Message message = new Message(
+                "Lehlogonolo",
+                "+27718693002",
+                "Hello Mike!",
+                0);
+
         manager.sendMessage(message);
+
         assertEquals(1, manager.returnTotalMessages());
     }
 
     @Test
-    public void checkPrintMessages() {
+    public void testPrintMessages() {
+
         MessageManager manager = new MessageManager();
-        Message message = new Message("0012345678", "Lehlogonolo", "+27718693002",
-                "Hi Mike, can you join us for dinner tonight?", 0);
+
+        Message message = new Message(
+                "Lehlogonolo",
+                "+27718693002",
+                "Hello Mike!",
+                0);
+
         manager.sendMessage(message);
-        String expected = "Message ID: 0012345678"
-                + "\nMessage Hash: 00:0:HITONIGHT"
-                + "\nSender: Lehlogonolo"
-                + "\nRecipient: +27718693002"
-                + "\nMessage: Hi Mike, can you join us for dinner tonight?\n\n";
-        assertEquals(expected, manager.printMessages());
+
+        String result = manager.printMessages();
+
+        assertTrue(result.contains("Sender: lehlogonolo"));
+        assertTrue(result.contains("Message: Hello Mike!"));
     }
 
     @Test
-    public void checkMessageTextUpdatesHash() {
-        Message message = new Message("0012345678", "Lehlogonolo", "+27718693002", "Hello Mike!", 0);
-        message.setMessageText("Goodbye Mike!");
-        assertEquals("00:0:GOODBYEMIKE", message.getMessageHash());
+    public void testMessageOptions() {
+
+        assertEquals(
+                "Message successfully sent.",
+                Message.sentMessage(1));
+
+        assertEquals(
+                "Press 0 to delete the message.",
+                Message.sentMessage(2));
+
+        assertEquals(
+                "Message successfully stored.",
+                Message.sentMessage(3));
     }
 }

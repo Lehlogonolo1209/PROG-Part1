@@ -2,6 +2,7 @@
 package com.mycompany.mamakokolpart1;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class MamakokoLPart1 {
 
@@ -18,21 +19,18 @@ public class MamakokoLPart1 {
 
         Scanner input = new Scanner(System.in);
 
-        // Create a manager to keep track of messages
+        // Create MessageManager object
         MessageManager messageManager = new MessageManager();
 
         // REGISTRATION
         System.out.println("====================Registration==========================");
 
-        // Ask user for first name
         System.out.print("Please enter your first name: ");
         firstName = input.nextLine();
 
-        // Ask user for last name
         System.out.print("Please enter your last name: ");
         lastName = input.nextLine();
 
-        // Ask user for username
         System.out.print("Please enter your username: ");
         userName = input.nextLine();
 
@@ -50,7 +48,6 @@ public class MamakokoLPart1 {
 
         System.out.println("Username successfully captured.");
 
-        // Ask user for password
         System.out.print("Please enter your password: ");
         password = input.nextLine();
 
@@ -60,7 +57,7 @@ public class MamakokoLPart1 {
             System.out.println("Password is not correctly formatted; "
                     + "please ensure that the password contains at "
                     + "least eight characters, a capital letter, "
-                    + "a number, and a special character");
+                    + "a number, and a special character.");
 
             System.out.print("Please enter your password again: ");
             password = input.nextLine();
@@ -68,17 +65,14 @@ public class MamakokoLPart1 {
 
         System.out.println("Password successfully captured.");
 
-        // Ask user for cellphone number
         System.out.print("Please enter your cellphone Number: ");
         cellPhoneNumber = input.nextLine();
 
         // Check cellphone number
         while (!Login.checkCellPhoneNumber(cellPhoneNumber)) {
 
-            System.out.println(
-                    "Cell number is incorrectly formatted or does "
-                    + "not contain an international code; please "
-                    + "correct the number and try again.");
+            System.out.println("Cell number is incorrectly formatted or "
+                    + "does not contain an international code.");
 
             System.out.print("Please enter your cellphone Number again: ");
             cellPhoneNumber = input.nextLine();
@@ -86,7 +80,7 @@ public class MamakokoLPart1 {
 
         System.out.println("Cell number successfully captured.");
 
-        // Registration method
+        // Register user
         System.out.println(
                 Login.registerUser(
                         userName,
@@ -97,23 +91,19 @@ public class MamakokoLPart1 {
         System.out.println();
         System.out.println("====================Login==========================");
 
-        // Ask for username
         System.out.print("Please enter your username: ");
         registerUserName = input.nextLine();
 
-        // Ask for password
         System.out.print("Please enter your password: ");
         registerPassword = input.nextLine();
 
         // Check login
-        boolean loginSuccessful =
-                Login.loginUser(
-                        registerUserName,
-                        registerPassword,
-                        userName,
-                        password);
+        boolean loginSuccessful = Login.loginUser(
+                registerUserName,
+                registerPassword,
+                userName,
+                password);
 
-        // Display login status
         System.out.println(
                 Login.returnLoginStatus(
                         loginSuccessful,
@@ -121,23 +111,22 @@ public class MamakokoLPart1 {
                         lastName));
 
         // QUICKCHAT
-
-        // Only users who logged in successfully can send messages
         if (loginSuccessful) {
 
             System.out.println();
-            System.out.println("====================Quickchat App==========================");
+            System.out.println("====================QuickChat App====================");
             System.out.println("Welcome to QuickChat.");
 
             int messageNumber = 0;
             int menuOption;
 
-            // Menu runs until the user selects quit
+            // Main menu
             do {
                 System.out.println();
                 System.out.println("Option 1) Send Messages");
                 System.out.println("Option 2) Show recently sent messages");
-                System.out.println("Option 3) Quit");
+                System.out.println("Option 3) Stored Messages");
+                System.out.println("Option 4) Quit");
                 System.out.print("Please enter an option: ");
 
                 menuOption = readWholeNumber(input);
@@ -146,19 +135,19 @@ public class MamakokoLPart1 {
 
                     case 1:
 
-                        // Ask how many messages the user wants to send
+                        // Ask how many messages to enter
                         System.out.println();
-                        System.out.print("Please enter how many messages you want to send: ");
+                        System.out.print("How many messages do you want to enter? ");
+
                         int numberOfMessages = readWholeNumber(input);
 
-                        // Check number of messages
                         while (numberOfMessages <= 0) {
 
                             System.out.print("Please enter a number bigger than 0: ");
                             numberOfMessages = readWholeNumber(input);
                         }
 
-                        // Enter the requested number of messages
+                        // Enter messages
                         for (int i = 0; i < numberOfMessages; i++) {
 
                             System.out.println();
@@ -166,7 +155,6 @@ public class MamakokoLPart1 {
                                     + (messageNumber + 1)
                                     + "===============");
 
-                            // Enter one message
                             enterMessage(
                                     input,
                                     messageNumber,
@@ -176,7 +164,6 @@ public class MamakokoLPart1 {
                             messageNumber++;
                         }
 
-                        // Display total messages successfully sent
                         System.out.println();
                         System.out.println(
                                 "Total number of messages sent: "
@@ -186,37 +173,38 @@ public class MamakokoLPart1 {
 
                     case 2:
 
-                        // Display recently sent messages
-                        if (messageManager.returnTotalMessages() == 0) {
+                        // Display sent messages
+                        System.out.println();
+                        System.out.println("===============Sent Messages===============");
 
-                            System.out.println("No messages have been sent yet.");
-
-                        } else {
-
-                            System.out.println();
-                            System.out.println("===============Sent Messages===============");
-
-                            System.out.println(messageManager.printMessages());
-                        }
+                        System.out.println(messageManager.printMessages());
 
                         break;
 
                     case 3:
+
+                        // Open Part 3 menu
+                        storedMessagesMenu(input, messageManager);
+
+                        break;
+
+                    case 4:
 
                         System.out.println(
                                 "Total number of messages sent: "
                                 + messageManager.returnTotalMessages());
 
                         System.out.println("Goodbye.");
+
                         break;
 
                     default:
 
                         System.out.println(
-                                "Invalid option; please choose 1, 2 or 3.");
+                                "Invalid option; please choose 1, 2, 3 or 4.");
                 }
 
-            } while (menuOption != 3);
+            } while (menuOption != 4);
         }
 
         input.close();
@@ -231,7 +219,7 @@ public class MamakokoLPart1 {
 
         System.out.println();
 
-        // Ask user for recipient
+        // Ask for recipient
         System.out.print("Please enter the recipient's cellphone number: ");
         String recipient = input.nextLine();
 
@@ -246,22 +234,15 @@ public class MamakokoLPart1 {
 
         System.out.println(Message.checkRecipientCell(recipient));
 
-        // Ask user for message
+        // Ask for message text
         System.out.print("Please enter your message: ");
         String messageText = input.nextLine();
 
-        // Check message
+        // Check message length
         while (messageText.trim().isEmpty()
                 || messageText.length() > 250) {
 
-            if (messageText.trim().isEmpty()) {
-
-                System.out.println("Message cannot be empty.");
-
-            } else {
-
-                System.out.println(Message.checkMessageLength(messageText));
-            }
+            System.out.println(Message.checkMessageLength(messageText));
 
             System.out.print("Please enter your message again: ");
             messageText = input.nextLine();
@@ -269,20 +250,18 @@ public class MamakokoLPart1 {
 
         System.out.println(Message.checkMessageLength(messageText));
 
-        // Create a Message object using the constructor
+        // Create Message object
         Message message = new Message(
                 sender,
                 recipient,
                 messageText,
                 messageNumber);
 
-        // Display generated message ID
         System.out.println(
                 Message.messageIDCreated(message.getMessageID()));
 
+        // Message options
         System.out.println();
-
-        // Ask what to do with the message
         System.out.println("1) Send Message");
         System.out.println("2) Disregard Message");
         System.out.println("3) Store Message to send later");
@@ -293,47 +272,194 @@ public class MamakokoLPart1 {
         // Check option
         while (option < 1 || option > 3) {
 
-            System.out.println(Message.sentMessage(option));
+            System.out.println("Invalid option.");
 
             System.out.print("Please enter an option again: ");
             option = readWholeNumber(input);
         }
 
-        System.out.println();
-
+        // Send message
         if (option == 1) {
 
-            // Send message using MessageManager
             messageManager.sendMessage(message);
 
             System.out.println(Message.sentMessage(option));
 
-            // Display the message details
             System.out.println();
             System.out.println(message.displayMessage());
 
         } else if (option == 2) {
 
             // Disregard message
-            System.out.println(Message.sentMessage(option));
+            System.out.print("Press 0 to disregard the message: ");
+            String confirmation = input.nextLine();
 
-            String deleteInput = input.nextLine();
+            while (!confirmation.equals("0")) {
 
-            while (!deleteInput.equals("0")) {
-
-                System.out.println("Press 0 to delete the message.");
-                deleteInput = input.nextLine();
+                System.out.print("Press 0 to disregard the message: ");
+                confirmation = input.nextLine();
             }
 
-            System.out.println("Message deleted.");
+            messageManager.disregardMessage(message);
 
-        } else if (option == 3) {
+            System.out.println("Message disregarded.");
 
-            // Store message in the JSON file
-            messageManager.storeMessage(message);
+        } else {
 
-            System.out.println(Message.sentMessage(option));
+            // Store message in JSON
+            boolean saved = messageManager.storeMessage(message);
+
+            if (saved) {
+                System.out.println(Message.sentMessage(option));
+            } else {
+                System.out.println("Message could not be stored.");
+            }
         }
+    }
+
+    // PART 3 - Stored Messages Menu
+    public static void storedMessagesMenu(
+            Scanner input,
+            MessageManager messageManager) {
+
+        int option;
+
+        do {
+            System.out.println();
+            System.out.println("====================Stored Messages====================");
+
+            System.out.println("1) Display sender and recipient");
+            System.out.println("2) Display longest stored message");
+            System.out.println("3) Search for message ID");
+            System.out.println("4) Search messages by recipient");
+            System.out.println("5) Delete message using message hash");
+            System.out.println("6) Display stored messages report");
+            System.out.println("7) Display sent messages report");
+            System.out.println("8) Return to main menu");
+
+            System.out.print("Please enter an option: ");
+            option = readWholeNumber(input);
+
+            switch (option) {
+
+                case 1:
+
+                    // Display sender and recipient
+                    System.out.println(
+                            messageManager.displayStoredContacts());
+
+                    break;
+
+                case 2:
+
+                    // Display longest stored message
+                    Message longest = messageManager.longestStoredMessage();
+
+                    if (longest == null) {
+
+                        System.out.println("No stored messages.");
+
+                    } else {
+
+                        System.out.println("Longest stored message:");
+                        System.out.println(longest.getMessageText());
+                    }
+
+                    break;
+
+                case 3:
+
+                    // Search message ID
+                    System.out.print("Enter message ID: ");
+                    String id = input.nextLine();
+
+                    Message found = messageManager.findByID(id);
+
+                    if (found == null) {
+
+                        System.out.println("Message ID not found.");
+
+                    } else {
+
+                        System.out.println("Recipient: "
+                                + found.getRecipient());
+
+                        System.out.println("Message: "
+                                + found.getMessageText());
+                    }
+
+                    break;
+
+                case 4:
+
+                    // Search by recipient
+                    System.out.print("Enter recipient cellphone number: ");
+                    String recipient = input.nextLine();
+
+                    ArrayList<Message> results =
+                            messageManager.searchByRecipient(recipient);
+
+                    if (results.isEmpty()) {
+
+                        System.out.println("No matching messages.");
+
+                    } else {
+
+                        for (Message message : results) {
+                            System.out.println(message.getMessageText());
+                        }
+                    }
+
+                    break;
+
+                case 5:
+
+                    // Delete message using hash
+                    System.out.print("Enter message hash: ");
+                    String hash = input.nextLine();
+
+                    Message deleted = messageManager.deleteByHash(hash);
+
+                    if (deleted == null) {
+
+                        System.out.println(
+                                "Message not found or could not be deleted.");
+
+                    } else {
+
+                        System.out.println(
+                                "Message: \"" + deleted.getMessageText()
+                                + "\" successfully deleted.");
+                    }
+
+                    break;
+
+                case 6:
+
+                    // Stored messages report
+                    System.out.println(messageManager.storedReport());
+
+                    break;
+
+                case 7:
+
+                    // Sent messages report
+                    System.out.println(messageManager.sentReport());
+
+                    break;
+
+                case 8:
+
+                    System.out.println("Returning to main menu.");
+
+                    break;
+
+                default:
+
+                    System.out.println("Invalid option; choose 1 to 8.");
+            }
+
+        } while (option != 8);
     }
 
     // Read a whole number from the user
@@ -341,7 +467,6 @@ public class MamakokoLPart1 {
 
         String number = input.nextLine().trim();
 
-        // Check number
         while (!number.matches("-?[0-9]{1,9}")) {
 
             System.out.print("Please enter a whole number: ");
