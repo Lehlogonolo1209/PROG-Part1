@@ -1,6 +1,6 @@
 # PROG-PEO
 Java registration and login system with input validation and JUnit tests.
-# MamakokoLPart1
+# MamakokoLPOE
 
 ## About My Project
 
