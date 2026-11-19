@@ -12,18 +12,21 @@ public class MessageTest {
         Message message = new Message(
                 "Lehlogonolo",
                 "+27718693002",
-                "Hello Mike!",
+                "Are we still meeting at the library this afternoon?",
                 0);
 
         assertEquals("Lehlogonolo", message.getSender());
         assertEquals("+27718693002", message.getRecipient());
-        assertEquals("Hello Mike!", message.getMessageText());
+        assertEquals(
+                "Are we still meeting at the library this afternoon?",
+                message.getMessageText());
     }
 
     @Test
     public void testMessageLengthSuccess() {
 
-        String result = Message.checkMessageLength("Hello Mike!");
+        String result = Message.checkMessageLength(
+                "Please let me know when you arrive at campus.");
 
         assertEquals("Message ready to send.", result);
     }
@@ -91,9 +94,9 @@ public class MessageTest {
         String hash = Message.createMessageHash(
                 "0012345678",
                 0,
-                "Hi Mike, can you join us for dinner tonight?");
+                "Please remember to bring your laptop tomorrow.");
 
-        assertEquals("00:0:HITONIGHT", hash);
+        assertEquals("00:0:PLEASETOMORROW", hash);
     }
 
     @Test
@@ -102,13 +105,16 @@ public class MessageTest {
         Message message = new Message(
                 "Lehlogonolo",
                 "+27718693002",
-                "Hello Mike!",
+                "The project meeting starts at nine.",
                 0);
 
         message.setMessageID("0012345678");
 
         assertEquals("0012345678", message.getMessageID());
-        assertEquals("00:0:HELLOMIKE", message.getMessageHash());
+
+        assertEquals(
+                "00:0:THENINE",
+                message.getMessageHash());
     }
 
     @Test
@@ -117,12 +123,12 @@ public class MessageTest {
         Message message = new Message(
                 "Lehlogonolo",
                 "+27718693002",
-                "Hello Mike!",
+                "I have sent you the updated project files.",
                 0);
 
-        message.setSender("John");
+        message.setSender("Thabo");
 
-        assertEquals("John", message.getSender());
+        assertEquals("Thabo", message.getSender());
     }
 
     @Test
@@ -131,14 +137,21 @@ public class MessageTest {
         Message message = new Message(
                 "Lehlogonolo",
                 "+27718693002",
-                "Hello Mike!",
+                "The meeting is scheduled for Monday.",
                 0);
 
         message.setMessageID("0012345678");
-        message.setMessageText("Goodbye Mike!");
 
-        assertEquals("Goodbye Mike!", message.getMessageText());
-        assertEquals("00:0:GOODBYEMIKE", message.getMessageHash());
+        message.setMessageText(
+                "The meeting has been moved to Friday.");
+
+        assertEquals(
+                "The meeting has been moved to Friday.",
+                message.getMessageText());
+
+        assertEquals(
+                "00:0:THEFRIDAY",
+                message.getMessageHash());
     }
 
     @Test
@@ -149,7 +162,7 @@ public class MessageTest {
         Message message = new Message(
                 "Lehlogonolo",
                 "+27718693002",
-                "Hello Mike!",
+                "I have completed my part of the assignment.",
                 0);
 
         manager.sendMessage(message);
@@ -157,7 +170,6 @@ public class MessageTest {
         assertEquals(1, manager.returnTotalMessages());
     }
 
-   
     @Test
     public void testPrintMessages() {
 
@@ -168,7 +180,7 @@ public class MessageTest {
         Message message = new Message(
                 "Lehlogonolo",
                 "+27718693002",
-                "Hello Mike!",
+                "Can you please review the changes I made to the project?",
                 0);
 
         // Send the message
@@ -177,7 +189,7 @@ public class MessageTest {
         // Get the displayed messages
         String result = manager.printMessages();
 
-        // Display the result to check its contents
+        // Display the result
         System.out.println(result);
 
         // Check that the message information appears
@@ -187,7 +199,6 @@ public class MessageTest {
 
         assertTrue(result.contains(message.getMessageText()));
     }
-
 
     @Test
     public void testMessageOptions() {
