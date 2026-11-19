@@ -1,8 +1,10 @@
 [
   {
-    "messageID": "6143965222",
-    "messageHash": "61:0:WHATSDINNER",
-    "recipient": "+27222222222",
-    "message": "What\u0027s for dinner"
+    "messageID": "6920774357",
+    "messageHash": "69:0:HEYOVER",
+    "sender": "Kyl_1",
+    "recipient": "+27111111111",
+    "messageText": "Hey are you coming over?",
+    "messageNumber": 0
   }
 ]

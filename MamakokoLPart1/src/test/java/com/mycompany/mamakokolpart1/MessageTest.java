@@ -156,37 +156,42 @@ public class MessageTest {
         assertEquals("Message successfully stored.", actual);
     }
 
-    // Test total number of messages sent
-    // (Test data: message 1 is sent, message 2 is disregarded)
     @Test
-    public void checkTotalMessagesSent() {
-        Message.clearMessages();
-
-        Message.sendMessage(
-                "0012345678",
-                "00:0:HITONIGHT",
-                "+27718693002",
-                "Hi Mike, can you join us for dinner tonight?");
-
-        assertEquals(1, Message.returnTotalMessages());
+    public void checkSenderProperty() {
+        Message message = new Message("0012345678", "Lehlogonolo", "+27718693002",
+                "Hi Mike, can you join us for dinner tonight?", 0);
+        assertEquals("Lehlogonolo", message.getSender());
+        message.setSender("Mike");
+        assertEquals("Mike", message.getSender());
     }
 
-    // Test printing the sent messages
+    @Test
+    public void checkTotalMessagesSent() {
+        MessageManager manager = new MessageManager();
+        Message message = new Message("0012345678", "Lehlogonolo", "+27718693002",
+                "Hi Mike, can you join us for dinner tonight?", 0);
+        manager.sendMessage(message);
+        assertEquals(1, manager.returnTotalMessages());
+    }
+
     @Test
     public void checkPrintMessages() {
-        Message.clearMessages();
-
-        Message.sendMessage(
-                "0012345678",
-                "00:0:HITONIGHT",
-                "+27718693002",
-                "Hi Mike, can you join us for dinner tonight?");
-
+        MessageManager manager = new MessageManager();
+        Message message = new Message("0012345678", "Lehlhogonolo", "+27718693002",
+                "Hi Mike, can you join us for dinner tonight?", 0);
+        manager.sendMessage(message);
         String expected = "Message ID: 0012345678"
                 + "\nMessage Hash: 00:0:HITONIGHT"
+                + "\nSender: Lehlogonolo"
                 + "\nRecipient: +27718693002"
                 + "\nMessage: Hi Mike, can you join us for dinner tonight?\n\n";
+        assertEquals(expected, manager.printMessages());
+    }
 
-        assertEquals(expected, Message.printMessages());
+    @Test
+    public void checkMessageTextUpdatesHash() {
+        Message message = new Message("0012345678", "Lehlogonolo", "+27718693002", "Hello Mike!", 0);
+        message.setMessageText("Goodbye Mike!");
+        assertEquals("00:0:GOODBYEMIKE", message.getMessageHash());
     }
 }
